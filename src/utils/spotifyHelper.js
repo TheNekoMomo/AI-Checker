@@ -18,7 +18,7 @@ function parseSpotifyTrackURL(input) {
       return { valid: false, trackId: null };
     }
     // Use a regex to extract the track ID from the pathname
-    const match = url.pathname.match(/^\/track\/([A-Za-z0-9]{22})/);
+    const match = url.pathname.match(/\/track\/([A-Za-z0-9]{22})/);
     // If the regex doesn't match, it's not a valid Spotify track URL
     if (!match) {
       return { valid: false, trackId: null };
