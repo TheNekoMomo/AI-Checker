@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const { connectDB } = require("./db");
 const eventHandler = require('./handlers/eventHandler');
-const getLocalIPs = require('./utils/GetLocalIP');
+const getPublicIP = require('./utils/GetIP');
 
 const client = new Client({intents: [
         IntentsBitField.Flags.Guilds,
@@ -15,7 +15,7 @@ eventHandler(client);
 
 (async () => {
     try {
-        console.log('Local IPs:', getLocalIPs());
+        console.log('Public IP:', await getPublicIP());
         await connectDB(process.env.MONGODB_URI);
         await client.login(process.env.TOKEN);
     }
