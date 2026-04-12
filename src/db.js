@@ -3,15 +3,22 @@ const mongoose = require("mongoose");
 async function connectDB(mongoUri, maxRetries = 5) {
   if (!mongoUri) throw new Error("MONGODB_URI is missing. Check your .env file.");
 
+  // Disconnect any existing connections first (handles restarts cleanly)
+  if (mongoose.connection.readyState !== 0) {
+    console.log("Clearing existing MongoDB connection...");
+    await mongoose.disconnect();
+  }
+
   mongoose.set("strictQuery", true);
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       await mongoose.connect(mongoUri, {
-        serverSelectionTimeoutMS: 5000,
+        serverSelectionTimeoutMS: 10000,
         socketTimeoutMS: 45000,
         maxPoolSize: 10,
         minPoolSize: 2,
+        family: 4, // Force IPv4 to avoid DNS issues
       });
       console.log("MongoDB connected");
       return;
