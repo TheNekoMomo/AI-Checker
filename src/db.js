@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const dns = require("dns").promises;
 
-async function connectDB(mongoUri, maxRetries = 5) {
+async function connectDB(mongoUri, maxRetries = 20) {
   if (!mongoUri) throw new Error("MONGODB_URI is missing. Check your .env file.");
 
   // Disconnect any existing connections first
@@ -23,6 +23,11 @@ async function connectDB(mongoUri, maxRetries = 5) {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       await mongoose.connect(mongoUri, {
+        serverSelectionTimeoutMS: 10000,
+        connectTimeoutMS: 10000,
+        socketTimeoutMS: 45000,
+        family: 4,
+        autoSelectFamily: false,
       });
       console.log("MongoDB connected successfully");
       return;
