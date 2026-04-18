@@ -28,10 +28,18 @@ module.exports = {
    * @param {import('discord.js').ChatInputCommandInteraction} interaction
    */
     callback: async (client, interaction) => {
-
       // Check if command is used in a guild, in a normal text channel.
       if(!interaction.inGuild() || interaction.channel?.type !== ChannelType.GuildText) {
         return interaction.reply({ content: "This command can only be used in a normal text channel within a guild.", flags: MessageFlags.Ephemeral });
+      }
+
+      const guildConfig = await GuildConfig.findOne({ guildId: interaction.guildId });
+      if (guildConfig && guildConfig.allowedChannels && guildConfig.allowedChannels.length > 0 && !guildConfig.allowedChannels.includes(interaction.channelId)) {
+            // Gets an the array of allowed channels from the database to add to the message to tell the user which channels they can use the command in
+            const allowedChannelsMention = guildConfig.allowedChannels.map(id => `<#${id}>`).join(', ');
+            return interaction.reply({ 
+              content: `This command is not allowed in this channel. Please use one of the following channels: ${allowedChannelsMention}`, 
+              flags: MessageFlags.Ephemeral });
       }
 
       // Record the start time for performance measurement
@@ -63,8 +71,7 @@ module.exports = {
         const shlabsStart = performance.now();
 
         // Start DB query, SHLabs API Call, Spotify API call, and Sightengine API call in parallel
-        const [guildConfig, shlabsWrapped, spotifyInfo] = await Promise.all([
-          GuildConfig.findOne({ guildId: interaction.guildId }),
+        const [shlabsWrapped, spotifyInfo] = await Promise.all([
           shlabsPromise,
           spotifyPromise
         ]);
