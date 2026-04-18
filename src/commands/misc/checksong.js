@@ -48,6 +48,7 @@ module.exports = {
 
       // If the URL is invalid, inform the user and exit
       if (!spotifyResult.valid) {
+        console.log(`Invalid spotify track URL given: ${songURL}`);
         return interaction.editReply("Invalid Spotify track URL.");
       }
 

@@ -12,14 +12,6 @@ async function connectDB(mongoUri, maxRetries = 20) {
 
   mongoose.set("strictQuery", true);
 
-  // Warm up DNS resolver (sometimes helps on fresh restarts)
-  try {
-    await dns.resolve4("mongodb.net");
-    console.log("DNS resolver warmed up");
-  } catch (e) {
-    console.warn("DNS warmup failed (non-critical):", e.message);
-  }
-
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       await mongoose.connect(mongoUri, {
