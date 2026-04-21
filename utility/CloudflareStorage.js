@@ -34,7 +34,7 @@ async function UploadFile(localFilePath) {
     const command = new GetObjectCommand({ Bucket: bucket, Key: key });
     const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
 
-    //await fs.unlink(localFilePath).catch((error)=>{ console.log(error) });
+    await fs.unlink(localFilePath).catch((error)=>{ console.log(error) });
 
     return url;
 }
