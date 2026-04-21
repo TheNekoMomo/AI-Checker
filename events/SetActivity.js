@@ -5,7 +5,7 @@ module.exports = {
     once: true,
     execute(client) {
         client.user?.setActivity({
-            name: 'Work in progress',
+            name: 'Looking for Clankers',
             type: ActivityType.Streaming,
             url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley',
         });
