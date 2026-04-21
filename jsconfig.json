@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "paths": {
+        "#db/*": ["./mongoose/*.js"],
+        "#models/*": ["./mongoose/models/*"],
+        "#utility/*": ["./utility/*"]
+    }
+  }
+}

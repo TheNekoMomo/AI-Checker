@@ -1,7 +1,0 @@
-{
-  "watch": ["src"],
-  "ignore": [
-    "node_modules"
-  ],
-  "ext": "js,json"
-}

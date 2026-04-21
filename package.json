@@ -1,23 +1,25 @@
 {
-  "name": "ai-song-checker",
+  "name": "ai-checker",
   "version": "1.0.0",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "node src/index.js",
-    "lint": "node scripts/lint.js",
-    "typecheck": "node scripts/typecheck.js",
-    "test": "node --test"
-  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
   "keywords": [],
-  "author": "Momo",
+  "author": "momo",
   "license": "ISC",
-  "description": "A Discord bot that checks if a song is AI-generated or not using SHLab's API.",
-  "dependencies": {
-    "axios": "^1.13.5",
-    "discord.js": "^14.21.0",
-    "dotenv": "^17.2.1",
-    "fast-average-color-node": "^3.2.0",
-    "mongoose": "^9.2.2"
+  "type": "commonjs",
+  "imports": {
+    "#db/*": "./mongoose/*.js",
+    "#models/*": "./mongoose/models/*.js",
+    "#utility/*": "./utility/*.js"
   },
-  "nodeVersion": "23.1.0"
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1032.0",
+    "@aws-sdk/s3-request-presigner": "^3.1032.0",
+    "axios": "^1.15.1",
+    "discord.js": "^14.26.2",
+    "dotenv": "^17.4.1",
+    "fast-average-color-node": "^3.2.0",
+    "mongoose": "^9.4.1"
+  }
 }

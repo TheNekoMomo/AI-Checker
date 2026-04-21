@@ -137,3 +137,6 @@ dist
 
 # local development marker
 .local_marker
+
+# Dont want to push staff in here
+bin/
