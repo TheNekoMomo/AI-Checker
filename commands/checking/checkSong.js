@@ -90,11 +90,15 @@ module.exports = {
         const response = await SubmitHubAPI(shLabsRequest);
         // Check that status in case of errors
         if (response.status === 500) {
-            return await interaction.editReply({content: `AI detection service temporarily unavailable.`});
+            return await interaction.editReply({content: `Error: ${response.status || 'Unknown'} AI detection service temporarily unavailable.`});
         }
         if (response.status !== 200) {
             console.log(response);
-            return await interaction.editReply({content: `Sorry, There was a problem.\nTry again later.`});
+            return await interaction.editReply({content: `Error: ${response.status || 'Unknown'}. Sorry, There was a problem.\nTry again later.`});
+        }
+        if (response.status !== 200 || !response.data || !response.data.result) {
+            console.log(response);
+            return await interaction.editReply({content: `Error: ${response.status || 'Unknown'}. Sorry, There was a problem with the response from the AI detection service.\nTry again later.`});
         }
         const {result, usage} = response.data;
         // Log the usage for submithub
