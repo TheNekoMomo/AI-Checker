@@ -98,8 +98,17 @@ module.exports = {
         }
         const {result, usage} = response.data;
         // Log the usage for submithub
-        console.log(`Daily usage left for SH Labs API: ${usage.daily_remaining} out of 500`);
-        console.log(`Monthly usage left for SH Labs API: ${usage.monthly_remaining} out of 10000`);
+        const now = new Date();
+        const dateTimeString = now.toLocaleString('en-GB', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        }).replace(',', '');
+        console.log(`${dateTimeString} Daily usage left for SH Labs API: ${usage.daily_remaining} out of 500`);
+        console.log(`${dateTimeString} Monthly usage left for SH Labs API: ${usage.monthly_remaining} out of 10000`);
 
         const {spectral_probabilities, temporal_probabilities} = result;
         embed.setTitle(`Prediction: ${result.prediction}`)
