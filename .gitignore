@@ -140,3 +140,5 @@ dist
 
 # Dont want to push staff in here
 bin/
+#WIP
+web/

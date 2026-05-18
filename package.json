@@ -1,9 +1,12 @@
 {
   "name": "ai-checker",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "bot": "node index.js",
+    "website": "node web/server.js"
+  },
   "keywords": [],
   "author": "momo",
   "license": "MIT",
@@ -19,6 +22,9 @@
     "axios": "^1.15.1",
     "discord.js": "^14.26.2",
     "dotenv": "^17.4.1",
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "fast-average-color-node": "^3.2.0",
     "mongoose": "^9.4.1"
   }

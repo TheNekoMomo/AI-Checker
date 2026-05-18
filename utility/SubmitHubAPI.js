@@ -9,8 +9,8 @@ async function SubmitHubAPI(requestBody) {
             requestBody,
             {
                 headers: {
-                'X-API-Key': shLabsAPIKey,
-                'Content-Type': 'application/json'
+                    'X-API-Key': shLabsAPIKey,
+                    'Content-Type': 'application/json'
                 }
             }
         );

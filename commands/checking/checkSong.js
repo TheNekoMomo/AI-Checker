@@ -88,14 +88,18 @@ module.exports = {
         // Request SubmitHub to check the given song
         await interaction.editReply({content: `Waiting on submithub.com`});
         const response = await SubmitHubAPI(shLabsRequest);
+
         // Check that status in case of errors
+        if (!response) {
+            return await interaction.editReply({content: `Sorry, There was a problem.\nTry again later.`});
+        }
         if (response.status === 500) {
             return await interaction.editReply({content: `Error: ${response.status} AI detection service temporarily unavailable.`});
         }
-        if (response.status !== 200 || !response) {
-            if (response) console.log(response);
-            return await interaction.editReply({content: `Error: ${response.status || 'Unknown'}. Sorry, There was a problem.\nTry again later.`});
+        if (response.status !== 200) {
+            return await interaction.editReply({content: `Error: ${response.status}. Sorry, There was a problem.\nTry again later.`});
         }
+        
         const {result, usage} = response.data;
         // Log the usage for submithub
         const now = new Date();
@@ -107,8 +111,8 @@ module.exports = {
             minute: '2-digit',
             hour12: false
         }).replace(',', '');
-        console.log(`${dateTimeString} Daily usage left for SH Labs API: ${usage.daily_remaining} out of 500`);
-        console.log(`${dateTimeString} Monthly usage left for SH Labs API: ${usage.monthly_remaining} out of 10000`);
+        console.log(`${dateTimeString} in ${interaction.member.guild.name}: Daily usage left for SH Labs API: ${usage.daily_remaining} out of 500`);
+        console.log(`${dateTimeString} in ${interaction.member.guild.name}: Monthly usage left for SH Labs API: ${usage.monthly_remaining} out of 10000`);
 
         const {spectral_probabilities, temporal_probabilities} = result;
         embed.setTitle(`Prediction: ${result.prediction}`)
