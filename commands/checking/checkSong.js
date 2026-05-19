@@ -101,6 +101,7 @@ module.exports = {
         }
         
         const {result, usage} = response.data;
+
         // Log the usage for submithub
         const now = new Date();
         const dateTimeString = now.toLocaleString('en-GB', {
@@ -115,7 +116,8 @@ module.exports = {
         console.log(`${dateTimeString} in ${interaction.member.guild.name}: Monthly usage left for SH Labs API: ${usage.monthly_remaining} out of 10000`);
 
         const {spectral_probabilities, temporal_probabilities} = result;
-        embed.setTitle(`Prediction: ${result.prediction}`)
+        const confidence = Number.parseFloat(result.confidence_score).toFixed(2);
+        embed.setTitle(`Prediction: ${result.prediction}, Confidence: ${confidence}%`)
         .setFields(
             {name: "Spectral Human", value: `${spectral_probabilities.human}%`, inline: true}, 
             {name: "Spectral Processed AI", value: `${spectral_probabilities.processed_ai}%`, inline: true}, 
