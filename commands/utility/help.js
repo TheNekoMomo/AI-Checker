@@ -11,7 +11,7 @@ const SubmitHubAPI = require('#utility/SubmitHubAPI');
 module.exports = {
     data: new SlashCommandBuilder().setName('help').setDescription('Displays help information.').setContexts(InteractionContextType.Guild),
     cooldown: 5,
-    remove: false,
+    remove: true,
     async execute(interaction) {
         for (const command of interaction.client.commands.values()) {
             if (command.remove || command.data.name === 'help') continue; // skip commands marked for removal or the help command itself
