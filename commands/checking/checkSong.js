@@ -91,7 +91,7 @@ module.exports = {
 
         // Check that status in case of errors
         if (!response) {
-            return await interaction.editReply({content: `Sorry, There was a problem.\nTry again later.`});
+            return await interaction.editReply({content: `Sorry, There was a problem with the request.\nTry again later.`});
         }
         if (response.status === 500) {
             return await interaction.editReply({content: `Error: ${response.status} AI detection service temporarily unavailable.`});
